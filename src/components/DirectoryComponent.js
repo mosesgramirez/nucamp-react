@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardTitle } from 'reactstrap';
+import CampsiteInfo from './CampsiteInfoComponent';
 
 class Directory extends Component {
     // constructor is optional, but if you have one, the props param is necessary, along with the super(props) line.
@@ -14,6 +15,7 @@ class Directory extends Component {
         this.setState({selectedCampsite: campsite});
     }
 
+    /*
     renderSelectedCampsite(campsite) {
         if(campsite) {
             return (
@@ -28,6 +30,8 @@ class Directory extends Component {
         };
         return <div />;
     }
+    */
+
 
     render() {
         const directory = this.props.campsites.map(campsite => {
@@ -48,11 +52,7 @@ class Directory extends Component {
                 <div className="row">
                     {directory}
                 </div>
-                <div className="row">
-                    <div className="col-md-5 m-1"> 
-                        {this.renderSelectedCampsite(this.state.selectedCampsite)}
-                    </div>
-                </div>
+                <CampsiteInfo campsite={this.state.selectedCampsite} /> 
             </div>
         );
     }
