@@ -132,7 +132,7 @@ export const COMMENTS =
         id: 16,
         campsiteId: 3,
         rating: 4, 
-        text: "The stars at night were a revelation!",
+        text: "The stars at night were big and bright!",
         author: "Ann Dabramov",
         date: "2018-07-23T19:44Z"
     },
