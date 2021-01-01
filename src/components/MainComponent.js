@@ -4,23 +4,34 @@ import CampsiteInfo from './CampsiteInfoComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
+import Contact from './ContactComponent';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { CAMPSITES } from '../shared/campsites';
+import { COMMENTS } from '../shared/comments';
+import { PARTNERS } from '../shared/partners';
+import { PROMOTIONS } from '../shared/promotions';
 
 class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
             campsites: CAMPSITES,
-            
+            comments: COMMENTS,
+            partners: PARTNERS,
+            promotions: PROMOTIONS
         };
     }
 
  
     render() {
+        // Note use of arrow functions here. Arrow functions inherit 'this' from their parent scope. Otherwise, we would need to add 'this' bindings to state.
         const HomePage = () => {
             return (
-                <Home />
+                <Home 
+                    campsite={this.state.campsites.filter(campsite => campsite.featured)[0]}
+                    promotion={this.state.promotions.filter(promotion => promotion.featured)[0]}
+                    partner={this.state.partners.filter(partner => partner.featured)[0]}
+                />
             );
         }
         return (
@@ -28,8 +39,11 @@ class Main extends Component {
                 <Header />
                 <Switch>
                     <Route path='/home' component={HomePage} />
+                    {/*Render, here, is needed if you are passing state data to another component.*/}
                     <Route exact path='/directory' render={() => <Directory campsites={this.state.campsites} />} />
+                    <Route exact path="/contactus" component={Contact} />
                     <Redirect to='/home' />
+                    
                 </Switch>
                 <Footer />
             </div>
