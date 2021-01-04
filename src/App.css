@@ -15,6 +15,11 @@ h2 {
   color: #3046c5;
 }
 
+.cardpic-div {
+  margin-top: 20px;
+  margin-bottom: 22px;
+}
+
 .card-img-overlay .card-title {
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
@@ -22,7 +27,7 @@ h2 {
 
 .row-content {
   padding: 50px 0;
-  border-bottom: 1px ridge;
+  border-bottom: 1px ridge lightgray;
   min-height: 200px;
 }
 
