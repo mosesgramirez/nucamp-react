@@ -13,22 +13,6 @@ function About(props) {
         );
     });
 
-    function RenderPartner({partner}) {
-        if({partner}) {
-            
-            return (
-                <React.Fragment>
-                    <Media object width="150" src={partner.image} alt={partner.name} />
-                    <Media body className="ml-5 my-auto">
-                        <Media heading>{partner.name}</Media>
-                        {partner.description}
-                    </Media>
-                </React.Fragment>
-            )
-        }
-        return <div />
-    }
-
     return (
         <div className="container">
             <div className="row">
@@ -89,6 +73,22 @@ function About(props) {
             </div>
         </div>
     );
+}
+
+function RenderPartner({partner}) {
+    if(partner) {
+        
+        return (
+            <React.Fragment>
+                <Media object width="150" src={partner.image} alt={partner.name} />
+                <Media body className="ml-5 my-auto">
+                    <Media heading>{partner.name}</Media>
+                    {partner.description}
+                </Media>
+            </React.Fragment>
+        )
+    }
+    return <div />
 }
 
 export default About;
