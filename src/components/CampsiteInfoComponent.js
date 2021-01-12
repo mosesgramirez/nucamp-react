@@ -103,14 +103,13 @@ class CommentForm extends Component {
     }
 }
 
-// We changed this from one big class component to three smaller functional components
+// We previously changed this from one big class component to three smaller functional components
 function RenderCampsite({campsite}){
     return (
         <div className="col-md-5 m-1">
             <Card>
                 <CardImg top src={campsite.image} alt={campsite.name} />
                 <CardBody>
-                    {/* // Felt cute. Might delete later. <CardTitle>{campsite.name}</CardTitle> */}
                     <CardText>{campsite.description}</CardText>
                 </CardBody>
             </Card>
@@ -121,7 +120,7 @@ function RenderCampsite({campsite}){
 function RenderComments({comments}) { 
     if(comments) {
         return (
-            <div className="col-md-5 m-1">
+            <div className="col-md-5 m-1 mb-3">
                 <h4>Comments</h4>
                 {comments.map(comment => {
                     return(
@@ -156,7 +155,6 @@ function CampsiteInfo(props) {
                 <div className="row">
                     <RenderCampsite campsite={props.campsite} />
                     <RenderComments comments={props.comments} />
-                    
                 </div>
             </div>
         );
