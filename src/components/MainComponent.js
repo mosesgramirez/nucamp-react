@@ -8,7 +8,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addComment } from '../redux/ActionCreators';
+import { addComment, fetchCampsites } from '../redux/ActionCreators';
 
 /* These are no longer necessary since we are transferring state to our store.
 import { CAMPSITES } from '../shared/campsites';
@@ -28,7 +28,8 @@ const mapStateToProps = state => {
 
 // mapDispatchToProps can be object (recommended) or function.
 const mapDispatchToProps = {
-    addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text))
+    addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text)), 
+    fetchCampsites: () => (fetchCampsites())
 };
 
 // We have also changed all instances of "state" to "props".
@@ -45,12 +46,20 @@ class Main extends Component {
     }
     */
  
+    //built-in lifecycle method in React, along with render()
+    componentDidMount() {
+        this.props.fetchCampsites();
+    }
+
     render() {
         // Note use of arrow functions here. Arrow functions inherit 'this' from their parent scope. Otherwise, we would need to add 'this' bindings to state.
+        // Also, since this.props.campsites is now an object, we need to add .campsites (to get the array named "campsites") to it.
         const HomePage = () => {
             return (
                 <Home 
-                    campsite={this.props.campsites.filter(campsite => campsite.featured)[0]}
+                    campsite={this.props.campsites.campsites.filter(campsite => campsite.featured)[0]}
+                    campsitesLoading={this.props.campsites.isLoading}
+                    campsitesErrMess={this.props.campsites.errMess}
                     promotion={this.props.promotions.filter(promotion => promotion.featured)[0]}
                     partner={this.props.partners.filter(partner => partner.featured)[0]}
                 />
@@ -59,7 +68,9 @@ class Main extends Component {
         const CampsiteWithId = ({match}) => {
             return (
                 <CampsiteInfo 
-                    campsite={this.props.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
+                    campsite={this.props.campsites.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
+                    isLoading={this.props.campsites.isLoading}
+                    errMess={this.props.campsites.errMess}
                     comments={this.props.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)}
                     addComment={this.props.addComment}    
                 />
