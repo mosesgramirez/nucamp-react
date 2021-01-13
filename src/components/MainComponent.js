@@ -8,7 +8,9 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-/* This is no longer necessary since we are transferring state to our store.
+import { addComment } from '../redux/ActionCreators';
+
+/* These are no longer necessary since we are transferring state to our store.
 import { CAMPSITES } from '../shared/campsites';
 import { COMMENTS } from '../shared/comments';
 import { PARTNERS } from '../shared/partners';
@@ -23,6 +25,11 @@ const mapStateToProps = state => {
         promotions: state.promotions
     }
 }
+
+// mapDispatchToProps can be object (recommended) or function.
+const mapDispatchToProps = {
+    addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text))
+};
 
 // We have also changed all instances of "state" to "props".
 class Main extends Component {
@@ -53,7 +60,8 @@ class Main extends Component {
             return (
                 <CampsiteInfo 
                     campsite={this.props.campsites.filter(campsite => campsite.id === +match.params.campsiteId)[0]}
-                    comments={this.props.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)}    
+                    comments={this.props.comments.filter(comment => comment.campsiteId === +match.params.campsiteId)}
+                    addComment={this.props.addComment}    
                 />
             );
         };
@@ -77,4 +85,5 @@ class Main extends Component {
     }
 }
 
-export default withRouter(connect(mapStateToProps)(Main));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Main));
+// The connect() arguments are now made available in Main as props.
