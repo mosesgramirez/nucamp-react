@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Breadcrumb, BreadcrumbItem, Button, Label, Col, Row } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Control, Form, Errors, actions } from 'react-redux-form';
 
 // Will return true if value is populated, false if not. Can use false for the error.
 const required = val => val && val.length;
@@ -41,6 +41,7 @@ class Contact extends Component  {
     handleSubmit(values) {
         console.log("Current state is: " + JSON.stringify(values));
         alert("Current state is: " + JSON.stringify(values));
+        this.props.resetFeedbackForm();
     }
 
     render() {  
@@ -79,7 +80,7 @@ class Contact extends Component  {
                         <br />
                     </div>
                     <div className="col-md-10">
-                        <LocalForm onSubmit={values => this.handleSubmit(values)}>
+                        <Form model="feedbackForm" onSubmit={values => this.handleSubmit(values)}>
                             <Row className="form-group">
                                 <Label htmlFor="firstName" md={2}>First Name</Label>
                                 <Col md={10}>
@@ -214,7 +215,7 @@ class Contact extends Component  {
                                     <Button type="submit" color="primary">Send Feedback</Button>
                                 </Col>
                             </Row>
-                        </LocalForm>
+                        </Form>
                     </div>
                 </div>
             </div>

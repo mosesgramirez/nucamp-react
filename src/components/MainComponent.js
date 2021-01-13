@@ -8,6 +8,7 @@ import Contact from './ContactComponent';
 import About from './AboutComponent';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { actions } from 'react-redux-form';
 import { addComment, fetchCampsites } from '../redux/ActionCreators';
 
 /* These are no longer necessary since we are transferring state to our store.
@@ -29,7 +30,8 @@ const mapStateToProps = state => {
 // mapDispatchToProps can be object (recommended) or function.
 const mapDispatchToProps = {
     addComment: (campsiteId, rating, author, text) => (addComment(campsiteId, rating, author, text)), 
-    fetchCampsites: () => (fetchCampsites())
+    fetchCampsites: () => (fetchCampsites()),
+    resetFeedbackForm: () => (actions.reset('feedbackForm'))
 };
 
 // We have also changed all instances of "state" to "props".
@@ -86,7 +88,7 @@ class Main extends Component {
                     {/* However, note that this no longer says "state" but "props" after integrating Redux. */}
                     <Route exact path='/directory' render={() => <Directory campsites={this.props.campsites} />} />
                     <Route path='/directory/:campsiteId' component={CampsiteWithId} />
-                    <Route exact path="/contactus" component={Contact} />
+                    <Route exact path="/contactus" render={() => <Contact resetFeedbackForm={this.props.resetFeedbackForm} />} />
                     <Route exact path="/aboutus" render={() => <About partners={this.props.partners} />} />
                     <Redirect to='/home' />
                 </Switch>

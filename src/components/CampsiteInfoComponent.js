@@ -33,7 +33,7 @@ class CommentForm extends Component {
     }
 
     handleSubmit(values) {
-        // this.toggleModal(); // this line was in the Redux Actions and Reducers exercise, but I had left it out and everything was working. Ask why.
+        this.toggleModal(); // this line was in the Redux Actions and Reducers exercise, but I had left it out and everything was working. Ask why.
         this.props.addComment(this.props.campsiteId, values.rating, values.author, values.text);
         /* old placeholder for state changes (comments)
         console.log("Current state is: " + JSON.stringify(values));
